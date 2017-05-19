@@ -32,7 +32,6 @@ public class JmsProducer {
 
 	private static final int RECONNECT_TIMEOUT_SECONDS = 20;
 	private static final String DEFAULT_CONNECTION_LIST = "localhost(1431)";
-	// private static final int PORT = 1431;
 	private static final String DEFAULT_CHANNEL = "LPQAINT.DVLPR.CN";
 	private static final String DEFAULT_QUEUEMANAGER = "LPQAINT";
 
