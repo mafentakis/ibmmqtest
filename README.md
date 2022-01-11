@@ -1,7 +1,7 @@
 # ibmmqtest
 
 simple mqclient programm for continouus sending/receiving messages
-to ibm mq queuemanager
+to an ibm mq queuemanager
 
 ```
   usage:
