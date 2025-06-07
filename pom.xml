@@ -12,7 +12,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>fully.qualified.MainClass</mainClass>
+                                                        <mainClass>JmsProducer</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
@@ -34,18 +34,12 @@
 
 
 	<dependencies>
-		<dependency>
-			<groupId>com.ibm</groupId>
-			<artifactId>com.ibm.mqjms</artifactId>
-			<version>1</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.ibm</groupId>
-			<artifactId>com.ibm.mq.jmqi</artifactId>
-			<version>1</version>
-			<scope>provided</scope>
-		</dependency>
+                <!-- IBM MQ JMS client -->
+                <dependency>
+                        <groupId>com.ibm.mq</groupId>
+                        <artifactId>com.ibm.mq.allclient</artifactId>
+                        <version>9.4.2.1</version>
+                </dependency>
 
 		<!-- https://mvnrepository.com/artifact/javax/javaee-api -->
 		<dependency>
