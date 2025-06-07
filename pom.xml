@@ -12,7 +12,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>fully.qualified.MainClass</mainClass>
+                                                        <mainClass>JmsProducer</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
