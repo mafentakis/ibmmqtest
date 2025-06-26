@@ -12,6 +12,8 @@ to an ibm mq queuemanager
   -queuemanager <arg>     default: LPQAINT
   -user <arg>             MQ user name
   -password <arg>         MQ password
+  -destination <arg>      default: ADMI.INITADM
+  -destinationType <arg>  queue or topic (default: queue)
 
 ```
 
