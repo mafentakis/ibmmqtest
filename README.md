@@ -35,9 +35,8 @@ The MQ container is reachable from the development container using the host
 
 ```bash
 mvn package
-java -cp target/ibmmqtest-0.0.1-SNAPSHOT-jar-with-dependencies.jar \
- JmsProducer -connectionList ibmmq\(1414\) -channel DEV.APP.SVRCONN \
- -user testuser -password passw0rd
+
+java -cp target/ibmmqtest-0.0.1-SNAPSHOT-jar-with-dependencies.jar  JmsProducer -connectionList ibmmq\(1414\) -channel DEV.APP.SVRCONN  -user app -password passw0rd -destination DEV.QUEUE.1
 ```
 
 This connects to the sidecar queue manager using the default channel
