@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  app:
+    image: mcr.microsoft.com/devcontainers/java:1-17-bookworm
+    command: sleep infinity
+    volumes:
+      - ..:/workspace:cached
+  ibmmq:
+    image: icr.io/ibm-messaging/mq:latest
+    environment:
+      - LICENSE=accept
+      - MQ_QMGR_NAME=LPQAINT
+      - MQ_APP_PASSWORD=passw0rd
+    ports:
+      - "1431:1414"
