@@ -110,14 +110,15 @@ public class JmsProducer {
 			}
 			cf.setStringProperty(WMQConstants.WMQ_QUEUE_MANAGER, queueManager);
 			if (USER_NAME != null) {
+				System.out.println("Using user name and password for authentication");
 				cf.setStringProperty(WMQConstants.USERID, USER_NAME);
 				cf.setStringProperty(WMQConstants.PASSWORD, PASSWORD);
 				cf.setBooleanProperty(WMQConstants.USER_AUTHENTICATION_MQCSP, true);
+			} else {
+				System.out.println("Using anonymous authentication");
 			}
-
 			// Create JMS objects
 			try (Connection connection = cf.createConnection()) {
-
 				connection.setClientID("kuhu");
 				connection.start();
 				System.out.println(testDurationMinutes + " minutes send/read test");

@@ -32,8 +32,12 @@ The MQ container is reachable from the development container using the host
 ```bash
 mvn package
 java -cp target/ibmmqtest-0.0.1-SNAPSHOT-jar-with-dependencies.jar \
-  JmsProducer -connectionList ibmmq(1414)
+ JmsProducer -connectionList ibmmq\(1414\) -channel DEV.APP.SVRCONN
 ```
 
 This connects to the sidecar queue manager using the default channel
 `LPQAINT.DVLPR.CN` and queue manager `LPQAINT`.
+
+
+see
+https://hub.docker.com/r/ibmcom/mq
