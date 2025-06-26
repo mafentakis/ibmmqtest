@@ -39,9 +39,9 @@ public class JmsProducer {
 
         private static final String DEFAULT_PASSWORD = null;
 
-	private static final String DESTINATION = "ADMI.INITADM";
+        private static final String DEFAULT_DESTINATION = "ADMI.INITADM";
 
-	private static final boolean isTopic = false;
+        private static final String DEFAULT_DESTINATION_TYPE = "queue"; // "queue" or "topic"
 
 	private static final boolean CLIENT_TRANSPORT = true;
 	private static final String DEFAULT_TESTDURATION = "5";
@@ -82,6 +82,16 @@ public class JmsProducer {
                                 .desc("MQ password").optionalArg(true).build();
                 options.addOption(passwordOption);
 
+                Option destinationOption = Option.builder("destination").hasArg()
+                                .desc("Destination name, default: " + DEFAULT_DESTINATION).optionalArg(true)
+                                .build();
+                options.addOption(destinationOption);
+
+                Option destTypeOption = Option.builder("destinationType").hasArg()
+                                .desc("queue or topic, default: " + DEFAULT_DESTINATION_TYPE).optionalArg(true)
+                                .build();
+                options.addOption(destTypeOption);
+
 		HelpFormatter formatter = new HelpFormatter();
 		formatter.printHelp(" ", options);
 		System.out.println("--------------------------------------------------------------");
@@ -98,6 +108,10 @@ public class JmsProducer {
 
                 String user = commandLine.getOptionValue(userOption.getOpt(), DEFAULT_USERNAME);
                 String password = commandLine.getOptionValue(passwordOption.getOpt(), DEFAULT_PASSWORD);
+
+                String destinationName = commandLine.getOptionValue(destinationOption.getOpt(), DEFAULT_DESTINATION);
+                String destinationType = commandLine.getOptionValue(destTypeOption.getOpt(), DEFAULT_DESTINATION_TYPE);
+                boolean useTopic = "topic".equalsIgnoreCase(destinationType);
 
 		final long testDurationMinutes = Long
 				.parseLong(commandLine.getOptionValue(durationOption.getOpt(), DEFAULT_TESTDURATION));
@@ -134,9 +148,9 @@ public class JmsProducer {
 				connection.start();
 				System.out.println(testDurationMinutes + " minutes send/read test");
 				long startTime = System.currentTimeMillis();
-				while ((System.currentTimeMillis() - startTime) < TimeUnit.MINUTES.toMillis(testDurationMinutes)) {
-					sendAndRead(connection);
-				}
+                                while ((System.currentTimeMillis() - startTime) < TimeUnit.MINUTES.toMillis(testDurationMinutes)) {
+                                        sendAndRead(connection, destinationName, useTopic);
+                                }
 			}
 
 		} catch (final JMSException jmsex) {
@@ -145,14 +159,14 @@ public class JmsProducer {
 		return;
 	} // end main()
 
-	private static void sendAndRead(Connection connection) throws JMSException {
-		Destination destination;
-		try (Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);) {
-			if (isTopic) {
-				destination = session.createTopic(DESTINATION);
-			} else {
-				destination = session.createQueue(DESTINATION);
-			}
+        private static void sendAndRead(Connection connection, String destinationName, boolean topic) throws JMSException {
+                Destination destination;
+                try (Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);) {
+                        if (topic) {
+                                destination = session.createTopic(destinationName);
+                        } else {
+                                destination = session.createQueue(destinationName);
+                        }
 			try (MessageProducer producer = session.createProducer(destination)) {
 
 				final TextMessage message = session
