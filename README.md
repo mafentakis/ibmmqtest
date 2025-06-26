@@ -8,10 +8,12 @@ to an ibm mq queuemanager
 
    -channel <arg>          default: LPQAINT.DVLPR.CN
    -connectionList <arg>   default: localhost(1431)
-   -duration <arg>         default: 5 minutes
-   -queuemanager <arg>     default: LPQAINT
+  -duration <arg>         default: 5 minutes
+  -queuemanager <arg>     default: LPQAINT
+  -user <arg>             MQ user name
+  -password <arg>         MQ password
 
- ```
+```
 
 ## Development container
 
@@ -32,7 +34,8 @@ The MQ container is reachable from the development container using the host
 ```bash
 mvn package
 java -cp target/ibmmqtest-0.0.1-SNAPSHOT-jar-with-dependencies.jar \
- JmsProducer -connectionList ibmmq\(1414\) -channel DEV.APP.SVRCONN
+ JmsProducer -connectionList ibmmq\(1414\) -channel DEV.APP.SVRCONN \
+ -user <username> -password <password>
 ```
 
 This connects to the sidecar queue manager using the default channel
